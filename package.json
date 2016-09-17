@@ -6,7 +6,9 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "mraa": "^0.7.3",
-    "express": "^4.13.3"
+    "body-parser": "^1.15.1",
+    "express": "^4.13.3",
+    "mraa": "^1.0.0",
+    "sleep": "^3.0.1"
   }
 }

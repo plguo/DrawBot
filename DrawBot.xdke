@@ -1,8 +1,147 @@
 {
   "project": {
-    "projectSettingsVersion": "2.0.0",
+    "projectSettingsVersion": "3.0.0",
     "currentBuildConfiguration": "Android",
     "projectFiles": {},
-    "projectDirectories": {}
+    "projectDirectories": {},
+    "initialAutoPluginCount": 0
+  },
+  "editorTab": {
+    "currentEditorMode": 0
+  },
+  "iot-tab": {
+    "fileStatus": {
+      ".jshintrc": {
+        "previousModTime": 1464358578000,
+        "modified": 1464358578000,
+        "seen": true,
+        "name": ".jshintrc"
+      },
+      "DrawBot.xdk": {
+        "previousModTime": 1466040676000,
+        "modified": 1466040676000,
+        "seen": true,
+        "name": "DrawBot.xdk"
+      },
+      "DrawBot.xdke": {
+        "previousModTime": 1466175026000,
+        "modified": 1466175026000,
+        "seen": true,
+        "name": "DrawBot.xdke"
+      },
+      "DrawBot_2.0.0.xdk_bak": {
+        "previousModTime": 1466040570000,
+        "modified": 1466040570000,
+        "seen": true,
+        "name": "DrawBot_2.0.0.xdk_bak"
+      },
+      "DrawBot_2.0.0.xdke_bak": {
+        "previousModTime": 1466040570000,
+        "modified": 1466040570000,
+        "seen": true,
+        "name": "DrawBot_2.0.0.xdke_bak"
+      },
+      "LICENSES.md": {
+        "previousModTime": 1464186319000,
+        "modified": 1464186319000,
+        "seen": true,
+        "name": "LICENSES.md"
+      },
+      "README.md": {
+        "previousModTime": 1464186319000,
+        "modified": 1464186319000,
+        "seen": true,
+        "name": "README.md"
+      },
+      "RobotArm.xdke": {
+        "previousModTime": 1464186319000,
+        "modified": 1464186319000,
+        "seen": true,
+        "name": "RobotArm.xdke"
+      },
+      "auto_canny.py": {
+        "previousModTime": 1464793309000,
+        "modified": 1464793309000,
+        "seen": true,
+        "name": "auto_canny.py"
+      },
+      "bot.js": {
+        "previousModTime": 1466169968000,
+        "modified": 1466169968000,
+        "seen": true,
+        "name": "bot.js"
+      },
+      "draw.js": {
+        "previousModTime": 1466175074000,
+        "modified": 1466175074000,
+        "seen": true,
+        "name": "draw.js"
+      },
+      "icon.png": {
+        "previousModTime": 1464186319000,
+        "modified": 1464186319000,
+        "seen": true,
+        "name": "icon.png"
+      },
+      "index.html": {
+        "previousModTime": 1465563975000,
+        "modified": 1465563975000,
+        "seen": true,
+        "name": "index.html"
+      },
+      "index.js": {
+        "previousModTime": 1465483616000,
+        "modified": 1465483616000,
+        "seen": true,
+        "name": "index.js"
+      },
+      "manger.js": {
+        "previousModTime": 1465995779000,
+        "modified": 1465995779000,
+        "seen": true,
+        "name": "manger.js"
+      },
+      "package.json": {
+        "previousModTime": 1466044348000,
+        "modified": 1466044348000,
+        "seen": true,
+        "name": "package.json"
+      },
+      "render.js": {
+        "previousModTime": 1466169545000,
+        "modified": 1466169545000,
+        "seen": true,
+        "name": "render.js"
+      },
+      "servo.js": {
+        "previousModTime": 1466161979000,
+        "modified": 1466161979000,
+        "seen": true,
+        "name": "servo.js"
+      },
+      "sleep.js": {
+        "previousModTime": 1466043041000,
+        "modified": 1466043041000,
+        "seen": true,
+        "name": "sleep.js"
+      },
+      "xdk-publish-meta-data.json": {
+        "previousModTime": 1466040571000,
+        "modified": 1466040571000,
+        "seen": true,
+        "name": "xdk-publish-meta-data.json"
+      },
+      "xdk/project-info.json": {
+        "previousModTime": 1464186319000,
+        "modified": 1464186319000,
+        "seen": true,
+        "name": "xdk/project-info.json"
+      }
+    },
+    "boardFileStatus": {
+      "draw.js": {
+        "previousModTime": 1466175075542
+      }
+    }
   }
 }

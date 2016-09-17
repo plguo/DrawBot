@@ -1,37 +1,187 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Robot Arm</title>
-  </head>
-  <body>
-    <h1>Robot Arm</h1>
+<html>
+  <style>
+    #container {
+      position: absolute;
 
-    <div id="one">
-      <h4>Servo 1</h4>
-      <button id="one-cw">Clockwise</button>
-      <button id="one-ccw">Counterclockwise</button>
-    </div>
+      width: 504px;
+      height: 560px;
 
-    <div id="two">
-      <h4>Servo 2</h4>
-      <button id="two-cw">Clockwise</button>
-      <button id="two-ccw">Counterclockwise</button>
-    </div>
+      top: calc(50% - 280px);
+      left: calc(50% - 252px);
+    }
 
-    <script>
-      ["one", "two"].forEach(function(servo) {
-        ["cw", "ccw"].forEach(function(direction) {
-          var path = servo + "-" + direction;
+    #can {
+      border: 2px solid black;
 
-          function send() {
-            var req = new XMLHttpRequest();
-            req.open("post", "/" + path, true);
-            req.send();
-          }
+      cursor: default;
+    }
+    .btn {
+      border: 2px solid black;
+      margin-top: 10px;
+      padding: 4px;
+      text-align: center;
+      width: 100px;
 
-          document.getElementById(path).addEventListener("click", send);
-        });
-      });
+      cursor: default;
+
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none;   /* Chrome/Safari/Opera */
+      -khtml-user-select: none;    /* Konqueror */
+      -moz-user-select: none;      /* Firefox */
+      -ms-user-select: none;       /* Internet Explorer/Edge */
+      user-select: none;           /* Non-prefixed version, currently
+                                      not supported by any browser */
+      float: left;
+      margin-right: 30px;
+    }
+    .btn:hover {
+      color: white;
+      background-color: black;
+    }
+  </style>
+    <script type="text/javascript">
+    var canvas, ctx, container, flag = false,
+        prevX = 0,
+        currX = 0,
+        prevY = 0,
+        currY = 0,
+        dot_flag = false;
+
+    var x = "black",
+        y = 2;
+
+    var w, h;
+
+    var disableDrawing = false;
+
+    var paths = [];
+
+    function init() {
+        canvas = document.getElementById('can');
+        ctx = canvas.getContext("2d");
+        container = document.getElementById('container');
+
+        w = canvas.width;
+        h = canvas.height;
+
+        canvas.addEventListener("mousemove", function (e) {
+          if (!disableDrawing)
+            findxy('move', e);
+        }, false);
+        canvas.addEventListener("mousedown", function (e) {
+          if (!disableDrawing)
+            findxy('down', e);
+        }, false);
+        canvas.addEventListener("mouseup", function (e) {
+          if (!disableDrawing)
+            findxy('up', e);
+        }, false);
+        canvas.addEventListener("mouseout", function (e) {
+          if (!disableDrawing)
+            findxy('out', e);
+        }, false);
+
+        document.getElementById('clr').addEventListener("mouseup", function (e) {
+            erase();
+        }, false);
+
+        document.getElementById('draw').addEventListener("mouseup", function (e) {
+            document.getElementById('clr').style.visibility = "hidden";
+            document.getElementById('draw').style.visibility = "hidden";
+            disableDrawing = true;
+
+              var req = new XMLHttpRequest();
+              req.open('POST', '/draw');
+              req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+              req.onreadystatechange = function() {
+                  if (req.readyState == 4 && req.status == 200)
+                    startDrawing(JSON.parse( req.responseText ));
+              }
+              req.send(JSON.stringify(paths));
+        }, false);
+    }
+
+    function startDrawing(paths) {
+      ctx.fillStyle="#FFF";
+      ctx.fillRect(0,0,w,h);
+
+      for (var path of paths) {
+        ctx.beginPath();
+        ctx.moveTo(path[0][0], path[0][1]);
+
+        var l = path.length - 1;
+        for (var i = 0; i < l; i++) {
+          ctx.lineTo(path[i][0], path[i][1]);
+        }
+        ctx.lineTo(path[l][0], path[l][1]);
+        ctx.strokeStyle = x;
+        ctx.lineWidth = y;
+        ctx.stroke();
+        ctx.closePath();
+      }
+    }
+
+    function draw() {
+        ctx.beginPath();
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(currX, currY);
+        ctx.strokeStyle = x;
+        ctx.lineWidth = y;
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    function erase() {
+        var m = confirm("Want to clear");
+        if (m) {
+            paths = [];
+            ctx.clearRect(0, 0, w, h);
+        }
+    }
+
+    function findxy(res, e) {
+        if (res == 'down') {
+            prevX = currX;
+            prevY = currY;
+            currX = e.clientX - canvas.offsetLeft - container.offsetLeft;
+            currY = e.clientY - canvas.offsetTop - container.offsetTop;
+
+            paths.push([[currX,currY]]);
+
+            flag = true;
+            dot_flag = true;
+            if (dot_flag) {
+                ctx.beginPath();
+                ctx.fillStyle = x;
+                ctx.fillRect(currX, currY, 2, 2);
+                ctx.closePath();
+                dot_flag = false;
+            }
+        }
+        if (res == 'up' || res == "out") {
+            flag = false;
+        }
+        if (res == 'move') {
+            if (flag) {
+                prevX = currX;
+                prevY = currY;
+                currX = e.clientX - canvas.offsetLeft - container.offsetLeft;
+                currY = e.clientY - canvas.offsetTop - container.offsetTop;
+
+                l = paths.length;
+                paths[l-1].push([currX,currY]);
+
+                draw();
+            }
+        }
+    }
     </script>
-  </body>
-</html>
+    <body onload="init()">
+      <div id="container">
+        <canvas id="can" width="500" height="500"></canvas>
+
+        <div id="draw" class="btn">Draw</div>
+        <div id="clr" class="btn">Clear</div>
+      </div>
+    </body>
+    </html>
